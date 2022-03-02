@@ -1,6 +1,6 @@
-import './App.css';
+import './styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
-import RecipeList from './RecipeList';
+import RecipeList from './components/RecipeList';
 
 function App() {
   return <RecipeList recipes={sampleRecipes} />;
