@@ -1,0 +1,24 @@
+.recipe {
+  border-bottom: 1px solid var(--complimentary-bg-color);
+}
+
+.recipe:last-child {
+  border-bottom: none;
+  padding-bottom: 1rem;
+}
+
+.recipe__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recipe__value--indented {
+  margin-top: 1rem;
+  margin-left: 2rem;
+}
+
+.recipe__instructions {
+  /* Preserves white space in our string */
+  white-space: pre-wrap;
+}

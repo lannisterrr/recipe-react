@@ -4,32 +4,34 @@ import IngredientList from './IngredientList';
 export default function Recipe(props) {
   const { name, cookTime, servings, instructions, ingredients } = props;
   return (
-    <div>
-      <header>
-        <h3>{name}</h3>
+    <div className="recipe">
+      <header className="recipe__header p-h-4">
+        <h3 className="t-c-3 heading-3">{name}</h3>
         <div className="button-wrapper">
-          <button>Edit</button>
-          <button>Delete</button>
+          <button class="btn btn-accent m-h-3 t-c-1">Edit</button>
+          <button class="btn btn-danger m-h-3 t-c-1">Delete</button>
         </div>
       </header>
-      <main>
-        <div className="recipe__item">
-          <span>Cook Time:</span>
-          <span>{cookTime}</span>
+      <main className="p-h-4 ">
+        <div className="p-v-2">
+          <span className="f-6 f-bold">Cook Time: </span>
+          <span className="f-6">{cookTime}</span>
         </div>
 
-        <div className="recipe__item">
-          <span>Servings : </span>
-          <span>{servings}</span>
+        <div className="p-v-2">
+          <span className="f-6 f-bold">Servings : </span>
+          <span className="f-6">{servings}</span>
         </div>
 
-        <div className="recipe__item">
-          <span>Instructions:</span>
-          <div className="recipe__instruction">{instructions}</div>
+        <div className="p-v-2">
+          <span className="f-6 f-bold">Instructions:</span>
+          <div className=" recipe__instructions recipe__value--indented f-6">
+            {instructions}
+          </div>
         </div>
 
-        <div className="recipe__item">
-          <span>Ingredients: </span>
+        <div className="p-v-2">
+          <span className="f-6 f-bold">Ingredients: </span>
           <IngredientList ingredients={ingredients} />
         </div>
       </main>
