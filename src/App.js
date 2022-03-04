@@ -11,7 +11,12 @@ const LOCAL_STORAGE_KEY = 'recipeReact.key';
 
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
+  const [selectedRecipeID, setSelectedRecipeID] = useState();
   const [show, setShow] = useState(false);
+
+  const selectedRecipe = recipes.find(recipe => recipe.id === selectedRecipeID);
+
+  console.log(selectedRecipe);
 
   useEffect(() => {
     if (show) {
@@ -39,6 +44,7 @@ function App() {
     handleDelete,
     handleAdd,
     show,
+    handleEdit,
   };
 
   function handleDelete(id) {
@@ -65,10 +71,15 @@ function App() {
     setRecipes(prevRevipe => [...prevRevipe, newRecipe]);
   }
 
+  function handleEdit(id) {
+    setSelectedRecipeID(id);
+  }
+
   return (
     <RecipeContext.Provider value={recipeContextValue}>
       <RecipeList recipes={recipes} />
-      <RecipeEdit />
+      {/* initially selectedRecipe is undefined don't render */}
+      {selectedRecipe && <RecipeEdit recipe={selectedRecipe} />}
       {show && <Alert />}
     </RecipeContext.Provider>
   );
