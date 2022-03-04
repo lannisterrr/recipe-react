@@ -1,9 +1,46 @@
 import './styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 import RecipeList from './components/RecipeList';
+import React, { useState } from 'react';
+
+export const RecipeContext = React.createContext();
 
 function App() {
-  return <RecipeList recipes={sampleRecipes} />;
+  const [recipes, setRecipes] = useState(sampleRecipes);
+
+  const recipeContextValue = {
+    handleDelete,
+    handleAdd,
+  };
+
+  function handleDelete(id) {
+    const filteredRecipe = recipes.filter(recipe => recipe.id !== id);
+    setRecipes(filteredRecipe);
+  }
+
+  function handleAdd() {
+    const newRecipe = {
+      id: uuidv4(),
+      name: 'New',
+      servings: 3,
+      cookTime: '1:00',
+      instructions: 'Instr...',
+      ingredients: [
+        {
+          id: uuidv4(),
+          name: 'Name',
+          amount: '2 Pounds',
+        },
+      ],
+    };
+    setRecipes(prevRevipe => [...prevRevipe, newRecipe]);
+  }
+
+  return (
+    <RecipeContext.Provider value={recipeContextValue}>
+      <RecipeList recipes={recipes} />
+    </RecipeContext.Provider>
+  );
 }
 
 const sampleRecipes = [
