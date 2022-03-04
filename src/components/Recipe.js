@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import IngredientList from './IngredientList';
 import { RecipeContext } from '../App';
-import Alert from './Alert';
 
 export default function Recipe(props) {
   const { handleDelete } = useContext(RecipeContext);
@@ -44,7 +43,6 @@ export default function Recipe(props) {
           <IngredientList ingredients={ingredients} />
         </div>
       </main>
-      {show && <Alert />}
     </div>
   );
 }

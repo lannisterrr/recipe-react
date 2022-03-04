@@ -1,6 +1,8 @@
 import './styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 import RecipeList from './components/RecipeList';
+import RecipeEdit from './components/RecipeEdit';
+import Alert from './components/Alert';
 import React, { useState, useEffect } from 'react';
 
 export const RecipeContext = React.createContext();
@@ -9,18 +11,20 @@ const LOCAL_STORAGE_KEY = 'recipeReact.key';
 
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const timeId = setTimeout(() => {
-      // After 3 seconds set the show value to false
-      setShow(false);
-    }, 3000);
+    if (show) {
+      const timeId = setTimeout(() => {
+        // After 3 seconds set the show value to false
+        setShow(false);
+      }, 2000);
 
-    return () => {
-      clearTimeout(timeId);
-    };
-  }, []);
+      return () => {
+        clearTimeout(timeId);
+      };
+    }
+  }, [show]);
 
   useEffect(() => {
     const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -40,6 +44,7 @@ function App() {
   function handleDelete(id) {
     const filteredRecipe = recipes.filter(recipe => recipe.id !== id);
     setRecipes(filteredRecipe);
+    setShow(true);
   }
 
   function handleAdd() {
@@ -63,6 +68,8 @@ function App() {
   return (
     <RecipeContext.Provider value={recipeContextValue}>
       <RecipeList recipes={recipes} />
+      <RecipeEdit />
+      {show && <Alert />}
     </RecipeContext.Provider>
   );
 }
