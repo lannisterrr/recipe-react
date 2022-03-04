@@ -1,4 +1,11 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 @import 'recipe-list.css';
 @import url('https://cerebrumui.netlify.app/style.css');
 @import 'recipe.css';
 @import 'ingredient-list.css';
+
+.alert-position {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+}

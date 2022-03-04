@@ -1,16 +1,40 @@
 import './styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 import RecipeList from './components/RecipeList';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const RecipeContext = React.createContext();
 
+const LOCAL_STORAGE_KEY = 'recipeReact.key';
+
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setShow(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    recipeJSON && setRecipes(JSON.parse(recipeJSON));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes));
+  }, [recipes]);
 
   const recipeContextValue = {
     handleDelete,
     handleAdd,
+    show,
   };
 
   function handleDelete(id) {
