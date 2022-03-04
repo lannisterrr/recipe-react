@@ -45,12 +45,17 @@ function App() {
     handleAdd,
     show,
     handleEdit,
+    handleRecipeChange,
   };
 
   function handleDelete(id) {
     const filteredRecipe = recipes.filter(recipe => recipe.id !== id);
     setRecipes(filteredRecipe);
     setShow(true);
+  }
+
+  function handleEdit(id) {
+    setSelectedRecipeID(id);
   }
 
   function handleAdd() {
@@ -71,8 +76,12 @@ function App() {
     setRecipes(prevRevipe => [...prevRevipe, newRecipe]);
   }
 
-  function handleEdit(id) {
-    setSelectedRecipeID(id);
+  // pass the id of the clicked recipe , and the new recipe object with all the changes
+  function handleRecipeChange(id, recipe) {
+    const newRecipes = [...recipes]; // make a copy of recipe array
+    const index = newRecipes.findIndex(r => r.id === id); // find the index of item in newRecipe array that matches with id
+    newRecipes[index] = recipe; // swapping one of the recipe in our array , which got changed and replace it with the new recipe.
+    setRecipes(newRecipes);
   }
 
   return (

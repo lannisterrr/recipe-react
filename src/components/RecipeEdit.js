@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RecpeIngredientEdit from './RecipeIngredientEdit';
+import { RecipeContext } from '../App';
 
 export default function RecipeEdit({ recipe }) {
+  const { handleRecipeChange } = useContext(RecipeContext);
+
+  function handleChange(changes) {
+    handleRecipeChange(recipe.id, { ...recipe, ...changes }); // we are creating a brand new object with(...) that has everyting from recipe + the changes
+    // we are the mutating the object here ,
+    // 1st iteration : {...recipe , recipe.name : e.target.value}
+    // we are overRiding 'name' in recipe from 'name' in changes.
+  }
+
   return (
     <div className="recipe-edit">
       <div className="recipe-edit__remove-button-container">
@@ -16,6 +26,7 @@ export default function RecipeEdit({ recipe }) {
           type="text"
           name="name"
           value={recipe.name}
+          onInput={e => handleChange({ name: e.target.value })}
           id="name"
         />
 
@@ -28,6 +39,7 @@ export default function RecipeEdit({ recipe }) {
           name="cookTime"
           id="cookTime"
           value={recipe.cookTime}
+          onInput={e => handleChange({ cookTime: e.target.value })}
         />
 
         <label className="f-6 f-bold" htmlFor="servings">
@@ -35,10 +47,14 @@ export default function RecipeEdit({ recipe }) {
         </label>
         <input
           className="recipe-edit__input"
-          type="text"
+          type="number"
+          min="1"
           name="servings"
           id="servings"
           value={recipe.servings}
+          onInput={e =>
+            handleChange({ servings: parseInt(e.target.value) || '' })
+          }
         />
 
         <label className="f-6 f-bold" htmlFor="instructions">
@@ -48,8 +64,9 @@ export default function RecipeEdit({ recipe }) {
           className="recipe-edit__input"
           name="instructions"
           id="instructions"
+          onInput={e => handleChange({ instructions: e.target.value })}
           value={recipe.instructions}
-        ></textarea>
+        />
       </div>
       <br />
       <label className="f-6 f-bold">Ingredients</label>
