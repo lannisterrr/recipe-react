@@ -86,6 +86,17 @@ export default function RecipeEdit({ recipe }) {
           }
         />
 
+        <label className="f-6 f-bold" htmlFor="author">
+          Author
+        </label>
+        <input
+          className="recipe-edit__input"
+          type="text"
+          name="author"
+          id="author"
+          value={recipe.author}
+          onChange={e => handleChange({ author: e.target.value })}
+        />
         <label className="f-6 f-bold" htmlFor="instructions">
           Instructions
         </label>
