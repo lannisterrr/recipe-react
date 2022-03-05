@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import RecpeIngredientEdit from './RecipeIngredientEdit';
 import { RecipeContext } from '../App';
+import { v4 } from 'uuid';
 
 export default function RecipeEdit({ recipe }) {
   const { handleRecipeChange, handleEdit } = useContext(RecipeContext);
@@ -19,6 +20,16 @@ export default function RecipeEdit({ recipe }) {
     const index = newIngredients.findIndex(i => i.id === id);
     newIngredients[index] = ingredientWithChange;
     handleChange({ ingredients: newIngredients });
+  }
+
+  function handleIngredientAdd() {
+    const newIngredient = {
+      id: v4(),
+      name: '',
+      amount: '',
+    };
+
+    handleChange({ ingredients: [...recipe.ingredients, newIngredient] });
   }
 
   return (
@@ -99,7 +110,10 @@ export default function RecipeEdit({ recipe }) {
         ))}
       </div>
       <div className="recipe-list__add-button-container m-v-8">
-        <button className="btn btn-accent t-c-1 recipe__add-button f-bold">
+        <button
+          onClick={handleIngredientAdd}
+          className="btn btn-accent t-c-1 recipe__add-button f-bold"
+        >
           Add Ingredient
         </button>
       </div>
