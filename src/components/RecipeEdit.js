@@ -32,6 +32,10 @@ export default function RecipeEdit({ recipe }) {
     handleChange({ ingredients: [...recipe.ingredients, newIngredient] });
   }
 
+  function handleIngredientDelete(id) {
+    handleChange({ ingredients: recipe.ingredients.filter(i => i.id !== id) });
+  }
+
   return (
     <div className="recipe-edit">
       <div className="recipe-edit__remove-button-container">
@@ -51,7 +55,7 @@ export default function RecipeEdit({ recipe }) {
           type="text"
           name="name"
           value={recipe.name}
-          onInput={e => handleChange({ name: e.target.value })}
+          onChange={e => handleChange({ name: e.target.value })}
           id="name"
         />
 
@@ -64,7 +68,7 @@ export default function RecipeEdit({ recipe }) {
           name="cookTime"
           id="cookTime"
           value={recipe.cookTime}
-          onInput={e => handleChange({ cookTime: e.target.value })}
+          onChange={e => handleChange({ cookTime: e.target.value })}
         />
 
         <label className="f-6 f-bold" htmlFor="servings">
@@ -77,7 +81,7 @@ export default function RecipeEdit({ recipe }) {
           name="servings"
           id="servings"
           value={recipe.servings}
-          onInput={e =>
+          onChange={e =>
             handleChange({ servings: parseInt(e.target.value) || '' })
           }
         />
@@ -89,7 +93,7 @@ export default function RecipeEdit({ recipe }) {
           className="recipe-edit__input"
           name="instructions"
           id="instructions"
-          onInput={e => handleChange({ instructions: e.target.value })}
+          onChange={e => handleChange({ instructions: e.target.value })}
           value={recipe.instructions}
         />
       </div>
@@ -105,6 +109,7 @@ export default function RecipeEdit({ recipe }) {
               key={ingredient.id}
               ingredient={ingredient}
               handleIngredientChange={handleIngredientChange}
+              handleIngredientDelete={handleIngredientDelete}
             />
           </>
         ))}
