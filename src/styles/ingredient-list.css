@@ -6,3 +6,12 @@
   justify-content: flex-start;
   margin-left: 2rem;
 }
+
+.author-text {
+  display: inline-flex;
+  background: var(--complimentary-bg-color);
+}
+
+.author-text-container {
+  text-align: end;
+}
