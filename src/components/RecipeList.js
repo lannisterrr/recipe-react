@@ -4,6 +4,7 @@ import { RecipeContext } from '../App';
 import SearchBar from './SearchBar';
 
 function RecipeList({ recipes }) {
+  console.log(recipes);
   const { handleAdd } = useContext(RecipeContext);
   return (
     <div className="recipe-list">

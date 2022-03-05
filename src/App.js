@@ -13,6 +13,7 @@ function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
   const [selectedRecipeID, setSelectedRecipeID] = useState(); // we are storing ID here, because we don't want same reference to the same object
   const [show, setShow] = useState(false);
+  const [inputValue, setInputValue] = useState();
 
   //The find() method returns the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, undefined is returned.
   const selectedRecipe = recipes.find(recipe => recipe.id === selectedRecipeID);
@@ -33,6 +34,7 @@ function App() {
   }, [show]);
 
   useEffect(() => {
+    console.log(recipes);
     const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
     recipeJSON && setRecipes(JSON.parse(recipeJSON));
   }, []);
@@ -44,9 +46,11 @@ function App() {
   const recipeContextValue = {
     handleDelete,
     handleAdd,
-    show,
     handleEdit,
     handleRecipeChange,
+    inputValue,
+    handleInputChange,
+    clearInput,
   };
 
   function handleDelete(id) {
@@ -90,9 +94,25 @@ function App() {
     setRecipes(newRecipe); // setState with the new array
   }
 
+  function handleInputChange(e) {
+    setInputValue(e.target.value);
+  }
+
+  function clearInput() {
+    setInputValue('');
+  }
+
+  const searchedRecipe = recipes.filter(recipe => {
+    if (!inputValue) {
+      return recipe;
+    }
+
+    return recipe.name.toLowerCase().includes(inputValue.toLowerCase());
+  });
+
   return (
     <RecipeContext.Provider value={recipeContextValue}>
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={searchedRecipe} />
       {/* initially selectedRecipe is undefined don't render */}
       {selectedRecipe && <RecipeEdit recipe={selectedRecipe} />}
       {show && <Alert />}
