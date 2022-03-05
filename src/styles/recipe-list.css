@@ -4,6 +4,11 @@
   width: 50%;
 }
 
+.searchbar-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
 .btn.btn-accent.recipe__add-button {
   padding-left: 11rem;
   padding-right: 11rem;

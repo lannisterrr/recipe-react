@@ -1,9 +1,9 @@
 import './styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from 'react';
 import RecipeList from './components/RecipeList';
 import RecipeEdit from './components/RecipeEdit';
 import Alert from './components/Alert';
-import React, { useState, useEffect } from 'react';
 
 export const RecipeContext = React.createContext();
 
@@ -11,7 +11,7 @@ const LOCAL_STORAGE_KEY = 'recipeReact.key';
 
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes);
-  const [selectedRecipeID, setSelectedRecipeID] = useState();
+  const [selectedRecipeID, setSelectedRecipeID] = useState(); // we are storing ID here, because we don't want same reference to the same object
   const [show, setShow] = useState(false);
 
   //The find() method returns the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, undefined is returned.
