@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import IngredientList from './IngredientList';
 import { RecipeContext } from '../App';
+import Author from './Author';
 
 export default function Recipe(props) {
   const { handleDelete, handleEdit } = useContext(RecipeContext);
-  const { id, name, cookTime, servings, instructions, ingredients } = props;
+  const { id, name, cookTime, servings, instructions, ingredients, author } =
+    props;
   return (
     <div className="recipe">
       <header className="recipe__header p-h-4">
@@ -45,6 +47,7 @@ export default function Recipe(props) {
         <div className="p-v-2">
           <span className="f-6 f-bold">Ingredients: </span>
           <IngredientList ingredients={ingredients} />
+          <Author author={author} />
         </div>
       </main>
     </div>

@@ -34,7 +34,6 @@ function App() {
   }, [show]);
 
   useEffect(() => {
-    console.log(recipes);
     const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
     recipeJSON && setRecipes(JSON.parse(recipeJSON));
   }, []);
@@ -73,6 +72,7 @@ function App() {
       servings: 1,
       cookTime: '',
       instructions: '',
+      author: '',
       ingredients: [
         {
           id: uuidv4(),
@@ -128,6 +128,7 @@ const sampleRecipes = [
     cookTime: '1:45',
     instructions:
       '1. Put Salt on Chicken\n2. Put Chicken in oven\n3. Eat Chicken',
+    author: 'Siddhant',
     ingredients: [
       {
         id: uuidv4(),
@@ -148,6 +149,7 @@ const sampleRecipes = [
     servings: 5,
     cookTime: '0:45',
     instructions: '1. Put paprika on Pork\n2. Put Pork in oven\n3. Eat Pork',
+    author: 'Shivam',
     ingredients: [
       {
         id: uuidv4(),
