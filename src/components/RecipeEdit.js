@@ -3,19 +3,33 @@ import RecpeIngredientEdit from './RecipeIngredientEdit';
 import { RecipeContext } from '../App';
 
 export default function RecipeEdit({ recipe }) {
-  const { handleRecipeChange } = useContext(RecipeContext);
+  const { handleRecipeChange, handleEdit } = useContext(RecipeContext);
 
+  // a helper function to get all the changes in an object
   function handleChange(changes) {
+    // call the handleRecipeChange function with the id and the recipeWithChange
     handleRecipeChange(recipe.id, { ...recipe, ...changes }); // we are creating a brand new object with(...) that has everyting from recipe + the changes
     // we are the mutating the object here ,
     // 1st iteration : {...recipe , recipe.name : e.target.value}
     // we are overRiding 'name' in recipe from 'name' in changes.
   }
 
+  function handleIngredientChange(id, ingredientWithChange) {
+    const newIngredients = [...recipe.ingredients];
+    const index = newIngredients.findIndex(i => i.id === id);
+    newIngredients[index] = ingredientWithChange;
+    handleChange({ ingredients: newIngredients });
+  }
+
   return (
     <div className="recipe-edit">
       <div className="recipe-edit__remove-button-container">
-        <button className="btn recipe-edit__remove-button">&times;</button>
+        <button
+          onClick={() => handleEdit(undefined)}
+          className="btn recipe-edit__remove-button"
+        >
+          &times;
+        </button>
       </div>
       <div className="recipe-edit__details-grid">
         <label className="f-6 f-bold" htmlFor="name">
@@ -76,7 +90,11 @@ export default function RecipeEdit({ recipe }) {
         <div></div>
         {recipe.ingredients.map(ingredient => (
           <>
-            <RecpeIngredientEdit key={ingredient.id} ingredient={ingredient} />
+            <RecpeIngredientEdit
+              key={ingredient.id}
+              ingredient={ingredient}
+              handleIngredientChange={handleIngredientChange}
+            />
           </>
         ))}
       </div>

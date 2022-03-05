@@ -5,7 +5,6 @@ import { RecipeContext } from '../App';
 export default function Recipe(props) {
   const { handleDelete, handleEdit } = useContext(RecipeContext);
   const { id, name, cookTime, servings, instructions, ingredients } = props;
-  const { show } = useContext(RecipeContext);
   return (
     <div className="recipe">
       <header className="recipe__header p-h-4">

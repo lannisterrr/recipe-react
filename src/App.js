@@ -14,9 +14,10 @@ function App() {
   const [selectedRecipeID, setSelectedRecipeID] = useState();
   const [show, setShow] = useState(false);
 
+  //The find() method returns the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, undefined is returned.
   const selectedRecipe = recipes.find(recipe => recipe.id === selectedRecipeID);
 
-  console.log(selectedRecipe);
+  // console.log(selectedRecipe);
 
   useEffect(() => {
     if (show) {
@@ -61,10 +62,10 @@ function App() {
   function handleAdd() {
     const newRecipe = {
       id: uuidv4(),
-      name: 'New',
-      servings: 3,
-      cookTime: '1:00',
-      instructions: 'Instr...',
+      name: '',
+      servings: 1,
+      cookTime: '',
+      instructions: '',
       ingredients: [
         {
           id: uuidv4(),
@@ -73,15 +74,17 @@ function App() {
         },
       ],
     };
+    setSelectedRecipeID(newRecipe.id);
     setRecipes(prevRevipe => [...prevRevipe, newRecipe]);
   }
 
+  //1. return a brand new object to the setState with all the changes
   // pass the id of the clicked recipe , and the new recipe object with all the changes
-  function handleRecipeChange(id, recipe) {
-    const newRecipes = [...recipes]; // make a copy of recipe array
-    const index = newRecipes.findIndex(r => r.id === id); // find the index of item in newRecipe array that matches with id
-    newRecipes[index] = recipe; // swapping one of the recipe in our array , which got changed and replace it with the new recipe.
-    setRecipes(newRecipes);
+  function handleRecipeChange(id, recipeWithChange) {
+    const newRecipe = [...recipes]; // make a copy of recipe array
+    const index = newRecipe.findIndex(r => r.id === id); // find the index of item in newRecipe array that matches with id
+    newRecipe[index] = recipeWithChange; // swapping that  recipe with that index in our array , which got changed and replace it with the new recipe.
+    setRecipes(newRecipe); // setState with the new array
   }
 
   return (
